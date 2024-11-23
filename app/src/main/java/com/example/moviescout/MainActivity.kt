@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
+import com.example.moviescout.ui.components.TopBar
 import com.example.moviescout.ui.theme.MoviescoutTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviescoutTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        TopBar()
+                    },
+                ) { innerPadding ->
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
@@ -34,14 +41,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
+        fontSize = TextUnit(20f, TextUnitType.Sp),
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MoviescoutTheme {
-        Greeting("Android")
-    }
 }
