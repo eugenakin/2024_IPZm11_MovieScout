@@ -4,15 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.moviescout.ui.components.TopBar
+import com.example.moviescout.ui.screens.MovieDetailsScreen
+import com.example.moviescout.ui.screens.MoviesScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,16 +24,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviescoutTheme {
+                val navController = rememberNavController()
+
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
-                        TopBar()
+                        TopBar(navController)
                     },
                 ) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    AppNavHost(navController, innerPadding)
+
                 }
             }
         }
@@ -38,10 +41,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        fontSize = TextUnit(20f, TextUnitType.Sp),
-        modifier = modifier
-    )
+fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
+    NavHost(navController = navController, startDestination = "home") {
+        composable(route = "home") {
+            MoviesScreen(navController, innerPadding)
+        }
+        composable(route = "details/{movieId}") { backStackEntry ->
+            val movieId = requireNotNull(backStackEntry.arguments?.getString("movieId"))
+            MovieDetailsScreen(movieId)
+        }
+    }
 }
