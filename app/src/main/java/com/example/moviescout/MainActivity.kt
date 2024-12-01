@@ -20,6 +20,7 @@ import com.example.moviescout.ui.screens.MoviesScreen
 import com.example.moviescout.ui.screens.MoviesSearchScreen
 import com.example.moviescout.ui.screens.MoviesWatchLaterScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
+import com.example.moviescout.viewmodel.MoviesViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
 fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
     NavHost(navController = navController, startDestination = "home") {
         composable(route = "home") {
-            MoviesScreen(navController, innerPadding)
+            MoviesScreen(navController, innerPadding, MoviesViewModel())
         }
         composable(route = "details/{movieId}") { backStackEntry ->
             val movieId = requireNotNull(backStackEntry.arguments?.getString("movieId"))

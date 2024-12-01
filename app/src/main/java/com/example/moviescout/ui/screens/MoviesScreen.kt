@@ -5,19 +5,35 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.moviescout.data.models.Movie
+import com.example.moviescout.data.repository.MoviesCategory
+import com.example.moviescout.ui.components.ChipOption
 import com.example.moviescout.ui.components.MovieCard
 import com.example.moviescout.ui.components.MoviesListFilterChips
-
+import com.example.moviescout.viewmodel.MoviesViewModel
 
 @Composable
-fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues) {
-    var selectedCategory by remember { mutableStateOf("Now Playing") }
-    val categories = listOf("Now Playing", "Popular", "Top Rated", "Upcoming")
+fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues, viewModel: MoviesViewModel) {
+    val movies by viewModel.movies.collectAsState()
+    val isLoading = viewModel.isLoading
+    var selectedCategory by remember { mutableStateOf(ChipOption(label = "Now Playing", value = MoviesCategory.NOW_PLAYING)) }
+    val categories = listOf(
+        ChipOption(label = "Now Playing", value = MoviesCategory.NOW_PLAYING),
+        ChipOption(label = "Popular", value = MoviesCategory.POPULAR),
+        ChipOption(label = "Top Rated", value = MoviesCategory.TOP_RATED),
+        ChipOption(label = "Upcoming", value = MoviesCategory.UPCOMING),
+    )
+
+    LaunchedEffect(selectedCategory) {
+        viewModel.fetchMoviesByCategory(selectedCategory.value)
+    }
 
     Column(
         modifier = Modifier
@@ -34,21 +50,28 @@ fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues) 
             )
 
         }
-        MoviesList(navController)
+        if (isLoading) {
+            Box(
+                modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+            }
+        } else {
+            MoviesList(navController, movies)
+        }
     }
 }
 
 @Composable
-fun MoviesList(navController: NavHostController) {
-    val dummyMovies = List(10) { "Movie $it" }
-
+fun MoviesList(navController: NavHostController, movies: List<Movie>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(dummyMovies) { movie ->
+        items(movies) { movie ->
             MovieCard(
-                movieTitle = movie,
+                movieTitle = movie.title,
                 onClick = { navController.navigate("details/${movie.hashCode()}") }
             )
         }

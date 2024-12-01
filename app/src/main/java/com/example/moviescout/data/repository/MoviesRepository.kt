@@ -1,12 +1,20 @@
 package com.example.moviescout.data.repository
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import com.example.moviescout.data.api.RetrofitInstance
 import com.example.moviescout.data.models.Movie
 import com.example.moviescout.data.models.MoviesListResponse
 
-class MealRepository {
-    suspend fun fetchNowPlayingMovies(): List<Movie> {
+enum class MoviesCategory {
+    NOW_PLAYING,
+    POPULAR,
+    TOP_RATED,
+    UPCOMING
+}
+
+class MoviesRepository {
+    private suspend fun fetchNowPlayingMovies(): List<Movie> {
         return try {
             val response: MoviesListResponse = RetrofitInstance.api.getNowPlayingMovies()
             response.results
@@ -16,7 +24,7 @@ class MealRepository {
         }
     }
 
-    suspend fun fetchPopularMovies(): List<Movie> {
+    private suspend fun fetchPopularMovies(): List<Movie> {
         return try {
             val response: MoviesListResponse = RetrofitInstance.api.getPopularMovies()
             response.results
@@ -26,7 +34,7 @@ class MealRepository {
         }
     }
 
-    suspend fun fetchTopRatedMovies(): List<Movie> {
+    private suspend fun fetchTopRatedMovies(): List<Movie> {
         return try {
             val response: MoviesListResponse = RetrofitInstance.api.getTopRatedMovies()
             response.results
@@ -36,13 +44,22 @@ class MealRepository {
         }
     }
 
-    suspend fun fetchUpcomingMovies(): List<Movie> {
+    private suspend fun fetchUpcomingMovies(): List<Movie> {
         return try {
             val response: MoviesListResponse = RetrofitInstance.api.getUpcomingMovies()
             response.results
         } catch (e: Exception) {
             Log.e("MovieRepository", "Error fetching upcoming movies", e)
             emptyList()
+        }
+    }
+
+    suspend fun fetchMoviesByCategory(category: MoviesCategory): List<Movie> {
+        return when(category) {
+            MoviesCategory.NOW_PLAYING -> fetchNowPlayingMovies()
+            MoviesCategory.POPULAR -> fetchPopularMovies()
+            MoviesCategory.TOP_RATED -> fetchTopRatedMovies()
+            MoviesCategory.UPCOMING -> fetchUpcomingMovies()
         }
     }
 }
