@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.moviescout.data.api.IMAGE_PATH
 import com.example.moviescout.data.models.Movie
 import com.example.moviescout.utils.formatReleaseDate
 
@@ -50,7 +51,7 @@ fun MovieCard(movie: Movie, onClick: () -> Unit) {
             modifier = Modifier.padding(0.dp)
         ) {
             NetworkImage(
-                imageUrl = "https://image.tmdb.org/t/p/w500/${movie.poster_path}",
+                imageUrl = "$IMAGE_PATH/${movie.poster_path}",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)

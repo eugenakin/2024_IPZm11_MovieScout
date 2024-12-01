@@ -22,6 +22,7 @@ import com.example.moviescout.ui.screens.MoviesScreen
 import com.example.moviescout.ui.screens.MoviesSearchScreen
 import com.example.moviescout.ui.screens.MoviesWatchLaterScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
+import com.example.moviescout.viewmodel.MovieDetailsViewModel
 import com.example.moviescout.viewmodel.MoviesViewModel
 import com.example.moviescout.viewmodel.SearchViewModel
 
@@ -57,7 +58,7 @@ fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
         }
         composable(route = "details/{movieId}") { backStackEntry ->
             val movieId = requireNotNull(backStackEntry.arguments?.getString("movieId"))
-            MovieDetailsScreen(movieId)
+            MovieDetailsScreen(innerPadding, MovieDetailsViewModel(movieId))
         }
         composable(route = "watch-later") {
             MoviesWatchLaterScreen(navController, innerPadding);

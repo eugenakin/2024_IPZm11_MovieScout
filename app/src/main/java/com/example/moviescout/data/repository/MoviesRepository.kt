@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import com.example.moviescout.data.api.RetrofitInstance
 import com.example.moviescout.data.models.Movie
+import com.example.moviescout.data.models.MovieDetails
 import com.example.moviescout.data.models.MoviesListResponse
 
 enum class MoviesCategory {
@@ -63,6 +64,17 @@ class MoviesRepository {
         }
     }
 
+    suspend fun getMovieById(movieId: String): MovieDetails? {
+        return try {
+            val response: MovieDetails = RetrofitInstance.api.getMovieById(movieId)
+            response
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Error fetching movie with id: $movieId", e)
+            null
+        }
+    }
+
+    // TODO: Replace with single /discover/movie call
     suspend fun fetchAllMovies(): List<Movie> {
         return try {
             val nowPlaying = fetchNowPlayingMovies()

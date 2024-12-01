@@ -73,7 +73,7 @@ fun MoviesList(navController: NavHostController, movies: List<Movie>) {
         items(movies) { movie ->
             MovieCard(
                 movie = movie,
-                onClick = { navController.navigate("details/${movie.hashCode()}") }
+                onClick = { navController.navigate("details/${movie.id}") }
             )
         }
     }
