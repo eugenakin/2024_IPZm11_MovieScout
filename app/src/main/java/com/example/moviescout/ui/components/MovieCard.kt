@@ -34,7 +34,7 @@ import com.example.moviescout.utils.formatReleaseDate
 fun MovieCard(movie: Movie, onClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .height(400.dp)
+            .height(410.dp)
             .padding(8.dp)
             .border(
                 width = 1.dp,
@@ -80,7 +80,7 @@ fun MovieCard(movie: Movie, onClick: () -> Unit) {
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))

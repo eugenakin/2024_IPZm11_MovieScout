@@ -62,4 +62,28 @@ class MoviesRepository {
             MoviesCategory.UPCOMING -> fetchUpcomingMovies()
         }
     }
+
+    suspend fun fetchAllMovies(): List<Movie> {
+        return try {
+            val nowPlaying = fetchNowPlayingMovies()
+            val popular = fetchPopularMovies()
+            val topRated = fetchTopRatedMovies()
+            val upcoming = fetchUpcomingMovies()
+
+            nowPlaying + popular + topRated + upcoming
+        } catch (e: Exception) {
+            Log.e("MoviesRepository", "Error fetching all movies", e)
+            emptyList()
+        }
+    }
+
+    suspend fun searchMovies(query: String): List<Movie> {
+        return try {
+            val response: MoviesListResponse = RetrofitInstance.api.searchMovies(query)
+            response.results
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Error searching movies", e)
+            emptyList()
+        }
+    }
 }

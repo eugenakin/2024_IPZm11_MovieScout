@@ -23,6 +23,7 @@ import com.example.moviescout.ui.screens.MoviesSearchScreen
 import com.example.moviescout.ui.screens.MoviesWatchLaterScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
 import com.example.moviescout.viewmodel.MoviesViewModel
+import com.example.moviescout.viewmodel.SearchViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +63,7 @@ fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
             MoviesWatchLaterScreen(navController, innerPadding);
         }
         composable(route = "search") {
-            MoviesSearchScreen(navController, innerPadding)
+            MoviesSearchScreen(navController, innerPadding, SearchViewModel())
         }
     }
 }
