@@ -19,6 +19,6 @@ interface MoviesApiService {
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): MoviesListResponse
 
-    @GET("movie/{id}")
-    suspend fun getMovieById(@Path("movieId") movieId: String): MovieDetails
+    @GET("movie/{movie_id}")
+    suspend fun getMovieById(@Path("movie_id") id: String): MovieDetails
 }

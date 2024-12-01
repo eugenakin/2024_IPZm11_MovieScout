@@ -12,16 +12,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
-class MovieDetailsViewModel : ViewModel() {
+class MovieDetailsViewModel(private val movieId: String) : ViewModel() {
     private val _movieDetails = MutableStateFlow<MovieDetails?>(null)
     val movieDetails: StateFlow<MovieDetails?> get() = _movieDetails
     private val moviesRepository = MoviesRepository()
     var isLoading by mutableStateOf(false)
 
-    fun getMovieById(movieId: String) {
+    init {
+        fetchMovieById(movieId)
+    }
+
+    private fun fetchMovieById(id: String) {
         isLoading = true
         viewModelScope.launch {
-            val movie = moviesRepository.getMovieById(movieId)
+            val movie = moviesRepository.getMovieById(id)
             _movieDetails.value = movie
             isLoading = false
         }

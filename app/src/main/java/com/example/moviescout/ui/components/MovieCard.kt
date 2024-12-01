@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.moviescout.data.api.IMAGE_PATH
 import com.example.moviescout.data.models.Movie
 
 @Composable
@@ -37,7 +38,7 @@ fun MovieCard(movie: Movie, onClick: () -> Unit) {
             modifier = Modifier.padding(0.dp)
         ) {
             NetworkImage(
-                imageUrl = "https://image.tmdb.org/t/p/w500/${movie.poster_path}",
+                imageUrl = "$IMAGE_PATH/${movie.poster_path}",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
