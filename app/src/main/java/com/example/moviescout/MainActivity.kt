@@ -13,9 +13,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.moviescout.ui.components.BottomBar
 import com.example.moviescout.ui.components.TopBar
 import com.example.moviescout.ui.screens.MovieDetailsScreen
 import com.example.moviescout.ui.screens.MoviesScreen
+import com.example.moviescout.ui.screens.MoviesWatchLaterScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,9 +33,11 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopBar(navController)
                     },
+                    bottomBar = {
+                        BottomBar(navController)
+                    }
                 ) { innerPadding ->
                     AppNavHost(navController, innerPadding)
-
                 }
             }
         }
@@ -49,6 +53,9 @@ fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
         composable(route = "details/{movieId}") { backStackEntry ->
             val movieId = requireNotNull(backStackEntry.arguments?.getString("movieId"))
             MovieDetailsScreen(movieId)
+        }
+        composable(route = "watch-later") {
+            MoviesWatchLaterScreen(navController, innerPadding);
         }
     }
 }

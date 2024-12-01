@@ -16,10 +16,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(navController: NavHostController) {
+    val currentBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry.value?.destination?.route
+
+    val title = when {
+        currentRoute == "home" -> "MovieScout"
+        currentRoute?.startsWith("details/") == true -> "Movie Details"
+        currentRoute == "watch-later" -> "Watch Later"
+        else -> "MovieScout"
+    }
+
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -27,7 +38,7 @@ fun TopBar(navController: NavHostController) {
         ),
         title = {
             Text(
-                "MovieScout",
+                title,
                 fontSize = TextUnit(24f, TextUnitType.Sp),
                 fontWeight = FontWeight.Bold,
                 letterSpacing = TextUnit(.8f, TextUnitType.Sp),
@@ -36,20 +47,14 @@ fun TopBar(navController: NavHostController) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Localized description"
-                )
+            if (currentRoute?.startsWith("details/") == true) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Go Back"
+                    )
+                }
             }
-        },
-        actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Localized description"
-                )
-            }
-        },
+        }
     )
 }
