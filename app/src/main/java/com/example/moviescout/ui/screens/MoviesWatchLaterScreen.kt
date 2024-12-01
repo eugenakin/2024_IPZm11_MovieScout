@@ -13,7 +13,6 @@ fun MoviesWatchLaterScreen(navController: NavHostController, innerPadding: Paddi
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-
         MoviesList(navController)
     }
 }
