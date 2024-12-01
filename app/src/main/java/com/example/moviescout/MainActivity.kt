@@ -54,7 +54,7 @@ fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
         }
         composable(route = "details/{movieId}") { backStackEntry ->
             val movieId = requireNotNull(backStackEntry.arguments?.getString("movieId"))
-            MovieDetailsScreen(movieId)
+            MovieDetailsScreen(navController, innerPadding, movieId)
         }
         composable(route = "watch-later") {
             MoviesWatchLaterScreen(navController, innerPadding);

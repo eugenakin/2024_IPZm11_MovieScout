@@ -1,7 +1,10 @@
 package com.example.moviescout.data.api
 
+import com.example.moviescout.data.models.Movie
+import com.example.moviescout.data.models.MovieDetails
 import com.example.moviescout.data.models.MoviesListResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface MoviesApiService {
     @GET("movie/now_playing")
@@ -15,4 +18,7 @@ interface MoviesApiService {
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): MoviesListResponse
+
+    @GET("movie/{id}")
+    suspend fun getMovieById(@Path("movieId") movieId: String): MovieDetails
 }
