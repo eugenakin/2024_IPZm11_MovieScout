@@ -28,6 +28,7 @@ fun TopBar(navController: NavHostController) {
         currentRoute == "home" -> "MovieScout"
         currentRoute?.startsWith("details/") == true -> "Movie Details"
         currentRoute == "watch-later" -> "Watch Later"
+        currentRoute == "search" -> "Search Movies"
         else -> "MovieScout"
     }
 
