@@ -19,24 +19,23 @@ fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues) 
     var selectedCategory by remember { mutableStateOf("Now Playing") }
     val categories = listOf("Now Playing", "Popular", "Top Rated", "Upcoming")
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+    ) {
+        Row(Modifier.padding(top = 16.dp)
+            .horizontalScroll(rememberScrollState())
+        ) {
+            MoviesListFilterChips(
+                categories = categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = { selectedCategory = it }
+            )
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
-                Row(Modifier.padding(top = 16.dp)
-                    .horizontalScroll(rememberScrollState())
-                ) {
-                    MoviesListFilterChips(
-                        categories = categories,
-                        selectedCategory = selectedCategory,
-                        onCategorySelected = { selectedCategory = it }
-                    )
-
-                }
-                MoviesList(navController)
         }
+        MoviesList(navController)
+    }
 }
 
 @Composable
