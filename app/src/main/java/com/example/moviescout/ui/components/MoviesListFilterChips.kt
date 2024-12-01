@@ -5,12 +5,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.moviescout.data.repository.MoviesCategory
+
+data class ChipOption(
+    val label: String,
+    val value: MoviesCategory
+)
 
 @Composable
 fun MoviesListFilterChips(
-    categories: List<String>,
-    selectedCategory: String,
-    onCategorySelected: (String) -> Unit
+    categories: List<ChipOption>,
+    selectedCategory: ChipOption,
+    onCategorySelected: (ChipOption) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -18,11 +24,11 @@ fun MoviesListFilterChips(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        categories.forEach { category ->
+        categories.forEach { option ->
             FilterChip(
-                selected = selectedCategory == category,
-                onClick = { onCategorySelected(category) },
-                label = { Text(category) },
+                selected = selectedCategory.value == option.value,
+                onClick = { onCategorySelected(option) },
+                label = { Text(option.label) },
                 modifier = Modifier.height(32.dp)
             )
         }

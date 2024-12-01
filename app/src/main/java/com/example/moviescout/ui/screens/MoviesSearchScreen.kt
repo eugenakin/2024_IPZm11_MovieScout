@@ -39,7 +39,7 @@ fun MoviesSearchScreen(navController: NavHostController, innerPadding: PaddingVa
             }
         )
 
-        MoviesList(navController)
+//        MoviesList(navController)
     }
 }
 

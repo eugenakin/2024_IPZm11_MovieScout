@@ -5,7 +5,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 
-
 @Composable
 fun MoviesWatchLaterScreen(navController: NavHostController, innerPadding: PaddingValues) {
     Column(
@@ -13,7 +12,8 @@ fun MoviesWatchLaterScreen(navController: NavHostController, innerPadding: Paddi
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-        MoviesList(navController)
+
+//        MoviesList(navController)
     }
 }
 
