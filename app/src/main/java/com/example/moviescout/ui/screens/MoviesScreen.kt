@@ -69,8 +69,6 @@ fun MoviesList(navController: NavHostController, movies: List<Movie>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize().padding(top = 8.dp),
-        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
-        verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)
     ) {
         items(movies) { movie ->
             MovieCard(

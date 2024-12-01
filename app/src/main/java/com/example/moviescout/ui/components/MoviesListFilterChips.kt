@@ -21,7 +21,7 @@ fun MoviesListFilterChips(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         categories.forEach { option ->
