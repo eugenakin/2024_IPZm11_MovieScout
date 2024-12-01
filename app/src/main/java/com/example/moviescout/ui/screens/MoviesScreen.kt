@@ -24,7 +24,6 @@ import com.example.moviescout.ui.components.MovieCard
 import com.example.moviescout.ui.components.MoviesListFilterChips
 import com.example.moviescout.viewmodel.MoviesViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues, viewModel: MoviesViewModel) {
     val movies by viewModel.movies.collectAsState()
@@ -69,7 +68,6 @@ fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues, 
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MoviesList(navController: NavHostController, movies: List<Movie>) {
     LazyVerticalGrid(

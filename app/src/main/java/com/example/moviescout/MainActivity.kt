@@ -25,7 +25,6 @@ import com.example.moviescout.ui.theme.MoviescoutTheme
 import com.example.moviescout.viewmodel.MoviesViewModel
 
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,7 +48,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
     NavHost(navController = navController, startDestination = "home") {

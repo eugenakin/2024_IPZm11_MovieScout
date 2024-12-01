@@ -1,9 +1,6 @@
 package com.example.moviescout.ui.components
 
-import android.R.attr.maxLines
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -33,7 +30,6 @@ import com.example.moviescout.utils.formatReleaseDate
 
 
 @SuppressLint("DefaultLocale")
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovieCard(movie: Movie, onClick: () -> Unit) {
     Card(
