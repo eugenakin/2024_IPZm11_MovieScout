@@ -17,6 +17,7 @@ import com.example.moviescout.ui.components.BottomBar
 import com.example.moviescout.ui.components.TopBar
 import com.example.moviescout.ui.screens.MovieDetailsScreen
 import com.example.moviescout.ui.screens.MoviesScreen
+import com.example.moviescout.ui.screens.MoviesSearchScreen
 import com.example.moviescout.ui.screens.MoviesWatchLaterScreen
 import com.example.moviescout.ui.theme.MoviescoutTheme
 
@@ -56,6 +57,9 @@ fun AppNavHost(navController: NavHostController, innerPadding: PaddingValues) {
         }
         composable(route = "watch-later") {
             MoviesWatchLaterScreen(navController, innerPadding);
+        }
+        composable(route = "search") {
+            MoviesSearchScreen(navController, innerPadding)
         }
     }
 }
