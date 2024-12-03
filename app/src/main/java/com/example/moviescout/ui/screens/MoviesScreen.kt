@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.moviescout.data.models.Movie
 import com.example.moviescout.data.repository.MoviesCategory
@@ -21,9 +22,10 @@ import com.example.moviescout.ui.components.MoviesListFilterChips
 import com.example.moviescout.viewmodel.MoviesViewModel
 
 @Composable
-fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues, viewModel: MoviesViewModel) {
-    val movies by viewModel.movies.collectAsState()
-    val isLoading = viewModel.isLoading
+fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues) {
+    val moviesViewModel: MoviesViewModel = viewModel();
+    val movies by moviesViewModel.movies.collectAsState()
+    val isLoading = moviesViewModel.isLoading
     var selectedCategory by remember { mutableStateOf(ChipOption(label = "Now Playing", value = MoviesCategory.NOW_PLAYING)) }
     val categories = listOf(
         ChipOption(label = "Now Playing", value = MoviesCategory.NOW_PLAYING),
@@ -33,7 +35,7 @@ fun MoviesScreen(navController: NavHostController, innerPadding: PaddingValues, 
     )
 
     LaunchedEffect(selectedCategory) {
-        viewModel.fetchMoviesByCategory(selectedCategory.value)
+        moviesViewModel.fetchMoviesByCategory(selectedCategory.value)
     }
 
     Column(
