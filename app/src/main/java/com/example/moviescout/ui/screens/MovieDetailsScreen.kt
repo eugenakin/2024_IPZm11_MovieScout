@@ -31,15 +31,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.moviescout.data.api.IMAGE_PATH
 import com.example.moviescout.ui.components.NetworkImage
 import com.example.moviescout.utils.formatReleaseDate
 import com.example.moviescout.viewmodel.MovieDetailsViewModel
 
 @Composable
-fun MovieDetailsScreen(innerPadding: PaddingValues, viewModel: MovieDetailsViewModel) {
-    val movieDetails by viewModel.movieDetails.collectAsState()
-    val isMovieDetailsLoading = viewModel.isLoading
+fun MovieDetailsScreen(movieId: String, innerPadding: PaddingValues) {
+    val movieDetailsViewModel: MovieDetailsViewModel = viewModel();
+    val movieDetails by movieDetailsViewModel.movieDetails.collectAsState()
+    val isMovieDetailsLoading = movieDetailsViewModel.isLoading
 
     if (isMovieDetailsLoading) {
         Box(

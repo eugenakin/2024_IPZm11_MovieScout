@@ -22,10 +22,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun MoviesSearchScreen(navController: NavHostController, innerPadding: PaddingValues, viewModel: SearchViewModel = viewModel()) {
+fun MoviesSearchScreen(navController: NavHostController, innerPadding: PaddingValues) {
+    val moviesSearchViewModel: SearchViewModel = viewModel()
     var searchQuery by remember { mutableStateOf("") }
-    val searchResults by viewModel.searchResults.collectAsState()
-    val isLoading = viewModel.isLoading
+    val searchResults by moviesSearchViewModel.searchResults.collectAsState()
+    val isLoading = moviesSearchViewModel.isLoading
     var debounceJob by remember { mutableStateOf<Job?>(null) }
 
     Column(
@@ -43,9 +44,9 @@ fun MoviesSearchScreen(navController: NavHostController, innerPadding: PaddingVa
                 debounceJob?.cancel()
 
                 // Start a new job with a debounce
-                debounceJob = viewModel.viewModelScope.launch {
+                debounceJob = moviesSearchViewModel.viewModelScope.launch {
                     delay(500L) // 500ms debounce delay
-                    viewModel.searchMovies(query)
+                    moviesSearchViewModel.searchMovies(query)
                 }
             },
             label = { Text("Search movies") },
